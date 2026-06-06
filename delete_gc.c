@@ -71,3 +71,4 @@ int garbageCollection(){
     return count;
     
 }
+#test amaçlı yazıdır bu.
