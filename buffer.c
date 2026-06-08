@@ -6,11 +6,11 @@ void initBuffer(){
 
     head = -1;
     tail = -1;
-    freeIndex = 0;
+    free = 0;
     editCounter = 0;
 
     for (i = 0; i < MAX_LINES; i++){
-        textbuffer[i].word[0] = '\0';
+        textbuffer[i].statement[0] = '\0';
         textbuffer[i].next = -1;
         textbuffer[i].prev = -1;
     }
@@ -27,13 +27,13 @@ int getLineCount() {
 
 void debugPrintBuffer() {
     int i;
-    printf("HEAD: %d | TAIL: %d | FREE: %d\n", head, tail, freeIndex);
+    printf("HEAD: %d | TAIL: %d | FREE: %d\n", head, tail, free);
     for (i = 0; i < MAX_LINES; i++) {
-        if (textbuffer[i].word[0] != '\0') {
+        if (textbuffer[i].statement[0] != '\0') {
             printf("[%d] prev:%d | '%s' | next:%d\n",
                 i,
                 textbuffer[i].prev,
-                textbuffer[i].word,
+                textbuffer[i].statement,
                 textbuffer[i].next);
         }
     }

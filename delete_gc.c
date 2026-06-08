@@ -1,16 +1,13 @@
+
 #include <string.h>
 #include "editor.h"
 
-void deleteLine(int index){
+void delete(int index){
     int prevIdx;
     int nextIdx;
 
-    if (index < 0 || index >= MAX_LINES) {
-        return;
-    }
-    if (head == -1) {
-        return; 
-    }
+    if (index < 0 || index >= MAX_LINES) return;
+    if (head == -1) return;
 
     prevIdx = textbuffer[index].prev;
     nextIdx = textbuffer[index].next;
@@ -29,7 +26,6 @@ void deleteLine(int index){
 
     textbuffer[index].next = -1;
     textbuffer[index].prev = -1;
-    textbuffer[index].word[0] = '\0';
 }
 
 int garbageCollection(){
@@ -39,20 +35,20 @@ int garbageCollection(){
     int i;
 
     while (current != -1 && count < MAX_LINES) {
-        strncpy(temp[count].word, textbuffer[current].word, MAX_LEN - 1);
-        temp[count].word[MAX_LEN - 1] = '\0';
+        strncpy(temp[count].statement, textbuffer[current].statement, MAX_LEN - 1);
+        temp[count].statement[MAX_LEN - 1] = '\0';
         count++;
         current = textbuffer[current].next;
     }
 
     for (i = 0; i < MAX_LINES; i++) {
-        textbuffer[i].word[0] = '\0';
+        textbuffer[i].statement[0] = '\0';
         textbuffer[i].next = -1;
         textbuffer[i].prev = -1;
     }
 
     for (i = 0; i < count; i++) {
-        strcpy(textbuffer[i].word, temp[i].word);
+        strcpy(textbuffer[i].statement, temp[i].statement);
         textbuffer[i].prev = i - 1;
         textbuffer[i].next = i + 1;
     }
@@ -62,12 +58,12 @@ int garbageCollection(){
         tail = count - 1;
         textbuffer[head].prev = -1;
         textbuffer[tail].next = -1;
-        freeIndex = count;
+        free = count;
     } else {
         head = -1;
         tail = -1;
-        freeIndex = 0;
+        free = 0;
     }
+
     return count;
-    
 }

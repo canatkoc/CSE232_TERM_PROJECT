@@ -13,7 +13,7 @@ void edit(char *filename) {
 
     while (fgets(line, MAX_LEN, f) && i < MAX_LINES) {
         line[strcspn(line, "\n")] = '\0';
-        strcpy(textbuffer[i].word, line);
+        strcpy(textbuffer[i].statement, line);
         textbuffer[i].prev = i - 1;
         textbuffer[i].next = i + 1;
         i++;
@@ -24,7 +24,7 @@ void edit(char *filename) {
         tail = i - 1;
         textbuffer[head].prev = -1;
         textbuffer[tail].next = -1;
-        freeIndex = i;
+        free = i;
     }
 
     fclose(f);
@@ -38,7 +38,7 @@ void save() {
 
     int current = head;
     while (current != -1) {
-        fprintf(f, "%s\n", textbuffer[current].word);
+        fprintf(f, "%s\n", textbuffer[current].statement);
         current = textbuffer[current].next;
     }
 
